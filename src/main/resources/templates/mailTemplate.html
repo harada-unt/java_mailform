@@ -1,0 +1,13 @@
+/*
+  テキスト形式のメールテンプレート (Thymeleaf, TemplateMode.TEXT)
+  変数: name, email, subject, content
+*/
+
+差出人: [[${name}]] <[[${email}]]>
+件名: [[${subject}]]
+
+------------------------------
+-- 送信内容 --
+[[${content}]]
+------------------------------
+

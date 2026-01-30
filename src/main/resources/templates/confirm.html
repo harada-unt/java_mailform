@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm</title>
+</head>
+<body>
+    <h1>確認画面</h1>
+    <form th:action="@{/complete}" method="post" th:object="${form}">
+        <table>
+            <tr>
+                <th>お名前:</th>
+                <td th:text="${form.name}"></td>
+                <td><input type="hidden" th:field="*{name}" /></td>
+            </tr>
+            <tr>
+                <th>メールアドレス:</th>
+                <td th:text="${form.email}"></td>
+                <td><input type="hidden" th:field="*{email}" /></td>
+            </tr>
+            <tr>
+                <th>件名:</th>
+                <td th:text="${form.subject}"></td>
+                <td><input type="hidden" th:field="*{subject}" /></td>
+            </tr>
+            <tr>
+                <th>お問い合わせ内容:</th>
+                <td th:text="${form.content}"></td>
+                <td><input type="hidden" th:field="*{content}" /></td>
+            </tr>                                                           
+            <tr>
+                <td><button type="button" onclick="history.back()">戻る</button></td>
+                <td><button type="submit">送信</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
