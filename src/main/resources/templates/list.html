@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>mailform</title>
+    <link rel="stylesheet" href="/style/style.css">
   </head>
   <body>
 
@@ -35,10 +36,10 @@
                     <td><button type="button" th:onclick="'location.href=\'/list/update/' + ${form.id} + '\''">編集</button></td>
                     <td><button type="button" th:onclick="'location.href=\'/list/delete/' + ${form.id} + '\''">削除</button></td>
                 </tr>
-                <div th:text="${message}"></div>
             </tbody>
         </table>
     </div>
+    <div th:text="${message}"></div>
     <button type="button" onclick="location.href='/'" >トップに戻る</button>
 
   </body>
