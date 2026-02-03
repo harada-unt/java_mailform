@@ -18,7 +18,7 @@ public class ConfirmFormController {
 
     @PostMapping("/confirm")
     public String submitForm(
-        @Valid @ModelAttribute Form form, 
+        @Valid @ModelAttribute Form form,
         BindingResult bindingResult,
         Model model
     ) {

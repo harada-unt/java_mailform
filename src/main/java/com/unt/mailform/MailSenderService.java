@@ -35,7 +35,7 @@ public class MailSenderService {
     ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 
     // classpath:/templates/ をプレフィックスとして使い、.html をサフィックスに設定
-    templateResolver.setPrefix("templates/");
+    templateResolver.setPrefix("mail/");
     templateResolver.setSuffix(".html");
     templateResolver.setTemplateMode(TemplateMode.TEXT);
     templateResolver.setCharacterEncoding("UTF-8");
