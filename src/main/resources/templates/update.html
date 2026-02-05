@@ -16,7 +16,7 @@
     <h1>お問い合わせ編集</h1>
     <a href="/list">お問い合わせ一覧表示</a>
 
-  <form th:action="@{/list/update/{id}(id=${form.id})}" method="post" th:object="${form}">
+  <form th:action="@{/list/update/{id}(id=${contactForm.id})}" method="post" th:object="${contactForm}">
       <table>
         <tr>
           <th><label for="name">お名前</label></th>

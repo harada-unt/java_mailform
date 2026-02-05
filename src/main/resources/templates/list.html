@@ -10,7 +10,7 @@
 
     <h1>お問い合わせ一覧</h1>
     <div>
-        <form th:action="@{/list}" method="post" th:object="${form}">
+        <form th:action="@{/list}" method="post" th:object="${contact}">
             <div><input type="text" name="name"  placeholder="お名前を入力"/></div>
             <div><input type="text" name="email"  placeholder="メールアドレスを入力"/></div>
             <div><button type="submit">検索する</button></div>
@@ -28,13 +28,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="form : ${forms}">
-                    <td th:text="${form.name}"></td>
-                    <td th:text="${form.email}"></td>
-                    <td th:text="${form.subject}"></td>
-                    <td th:text="${form.content}"></td>
-                    <td><button type="button" th:onclick="'location.href=\'/list/update/' + ${form.id} + '\''">編集</button></td>
-                    <td><button type="button" th:onclick="'location.href=\'/list/delete/' + ${form.id} + '\''">削除</button></td>
+                <tr th:each="contact : ${contacts}">
+                    <td th:text="${contact.name}"></td>
+                    <td th:text="${contact.email}"></td>
+                    <td th:text="${contact.subject}"></td>
+                    <td th:text="${contact.content}"></td>
+                    <td><button type="button" th:onclick="'location.href=\'/list/update/' + ${contact.id} + '\''">編集</button></td>
+                    <td><button type="button" th:onclick="'location.href=\'/list/delete/' + ${contact.id} + '\''">削除</button></td>
                 </tr>
             </tbody>
         </table>

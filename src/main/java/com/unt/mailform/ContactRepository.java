@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FormRepository extends JpaRepository<Form, Integer> {
+public interface ContactRepository extends JpaRepository<Contact, Long> {
     // 名前またはemailで検索
-    List<Form> findByNameContainingOrEmailContaining(String name, String email);
+    List<Contact> findByNameContainingOrEmailContaining(String name, String email);
 }
