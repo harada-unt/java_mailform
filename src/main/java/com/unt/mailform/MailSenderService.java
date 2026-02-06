@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @Service
 public class MailSenderService {
@@ -23,6 +22,11 @@ public class MailSenderService {
     @Value("${spring.mail.properties.admin.email}")
     private String adminEmail;
 
+    // テンプレートエンジンをDIする
+    @Qualifier("messageTemplateEngine")
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+
     public void sendMail (String name, String email, String subject, String content) {
         // 送信するメール内容を作成し設定する。
         SimpleMailMessage message = new SimpleMailMessage();
@@ -31,20 +35,6 @@ public class MailSenderService {
         message.setSubject(subject);
 
 
-    // テンプレートエンジンを使用するための設定インスタンスを作成
-    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-
-    // classpath:/templates/ をプレフィックスとして使い、.html をサフィックスに設定
-    templateResolver.setPrefix("mail/");
-    templateResolver.setSuffix(".html");
-    templateResolver.setTemplateMode(TemplateMode.TEXT);
-    templateResolver.setCharacterEncoding("UTF-8");
-    templateResolver.setCacheable(false);
-
-    // テンプレートエンジンを使用すためのインスタンスを作成
-    SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-    templateEngine.setTemplateResolver(templateResolver);
-        
         // メールテンプレートに設定するパラメータを設定する。
         // パラメータformに入力した内容を設定する。
         Map<String, Object> variables = new HashMap<>();
@@ -53,10 +43,9 @@ public class MailSenderService {
         variables.put("email", email);
         variables.put("content", content);
 
-    // テンプレート名はサフィックスなしで指定する
-    String text = templateEngine.process("mailTemplate", new Context(null, variables));
+        // テンプレート名はサフィックスなしで指定する
+        String text = templateEngine.process("formToAdmin", new Context(null, variables));
         message.setText(text);
         this.mailSender.send(message);
     }
-
 }
