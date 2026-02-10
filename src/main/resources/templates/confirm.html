@@ -8,26 +8,26 @@
 </head>
 <body>
     <h1>確認画面</h1>
-    <form th:action="@{/complete}" method="post" th:object="${contactForm}">
+    <form th:action="@{/complete}" method="post" th:object="${contactDto}">
         <table>
             <tr>
                 <th>お名前:</th>
-                <td th:text="${contactForm.name}"></td>
+                <td th:text="${contactDto.name}"></td>
                 <td><input type="hidden" th:field="*{name}" /></td>
             </tr>
             <tr>
                 <th>メールアドレス:</th>
-                <td th:text="${contactForm.email}"></td>
+                <td th:text="${contactDto.email}"></td>
                 <td><input type="hidden" th:field="*{email}" /></td>
             </tr>
             <tr>
                 <th>件名:</th>
-                <td th:text="${contactForm.subject}"></td>
+                <td th:text="${contactDto.subject}"></td>
                 <td><input type="hidden" th:field="*{subject}" /></td>
             </tr>
             <tr>
                 <th>お問い合わせ内容:</th>
-                <td th:text="${contactForm.content}"></td>
+                <td th:text="${contactDto.content}"></td>
                 <td><input type="hidden" th:field="*{content}" /></td>
             </tr>                                                           
             <tr>

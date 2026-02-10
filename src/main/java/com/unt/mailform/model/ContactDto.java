@@ -1,9 +1,4 @@
-package com.unt.mailform;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+package com.unt.mailform.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,24 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "contacts")
+/**
+ * お問い合わせフォームクラス
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-/**
- *　お問い合わせmodelクラス
- */
-public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContactDto {
     private Long id;
-    
+
     @NotBlank(message = "{mailform.name.notblank}")
     @Column(nullable = false, length = 50)
     @Size(max = 50, message = "{mailform.name.max}")    
     private String name;
-    
+
     @NotBlank(message = "{mailform.email.notblank}")
     @Column(nullable = false, length = 100)
     @Email(message = "{mailform.email.invalid}")
@@ -45,4 +36,5 @@ public class Contact {
     @Column(nullable = false, length = 255)
     @Size(max = 255, message = "{mailform.content.max}")
     private String content;
+    
 }

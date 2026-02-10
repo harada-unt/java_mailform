@@ -1,8 +1,11 @@
-package com.unt.mailform;
+package com.unt.mailform.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import com.unt.mailform.model.Contact;
+import com.unt.mailform.model.ContactDto;
+import com.unt.mailform.repository.ContactRepository;
 
 @Service
 public class ContactService {
@@ -12,7 +15,7 @@ public class ContactService {
 
     // お問い合わせ登録
     @Transactional
-    public Contact saveContact(ContactForm form) {
+    public Contact saveContact(ContactDto form) {
         Contact contact = new Contact();
         contact.setName(form.getName());
         contact.setEmail(form.getEmail());
@@ -32,7 +35,7 @@ public class ContactService {
     }
     
     @Transactional
-    public Contact updateContact(Long id, ContactForm form) {
+    public Contact updateContact(Long id, ContactDto form) {
         // お問い合わせ更新
     Contact contact = contactRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid form Id:" + id));
         contact.setName(form.getName());

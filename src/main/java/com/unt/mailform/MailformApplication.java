@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import com.unt.mailform.model.ContactDto;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -18,9 +19,9 @@ public class MailformApplication {
 		SpringApplication.run(MailformApplication.class, args);
 	}
 
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String ContactForm(Model model) {
-		model.addAttribute("contactForm", new ContactForm());
+		model.addAttribute("contactForm", new ContactDto());
 		return "index";
 	}
 
