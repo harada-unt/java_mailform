@@ -15,6 +15,9 @@ import com.unt.mailform.model.ContactDto;
 import com.unt.mailform.service.ContactService;
 import com.unt.mailform.service.MailSenderService;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Controller
 public class ContactFormController {
 
@@ -72,18 +75,21 @@ public class ContactFormController {
         return "complete";
     }
 
-    // 一覧表示と検索機能
+    // お問い合わせ一覧表示
     @GetMapping("/list")
-    public String showList(Model model) {
-        List<Contact> contacts = contactService.getContact();
-        model.addAttribute("contacts", contacts);
+    public String showList(Model model, Pageable pageable) {
+        Page<Contact> pageList = contactService.getContact(pageable);
+        List<Contact> contactList = pageList.getContent();
+        model.addAttribute("pages", pageList);
+        model.addAttribute("contacts", contactList);
         return "list";
     }
+    // お問い合わせ検索機能
     @PostMapping("/list")
     public String searchList(
-    @RequestParam(name = "name", required = false) String name,
-    @RequestParam(name = "email", required = false) String email,
-    Model model) {
+    @RequestParam(required = false) String name,
+    @RequestParam(required = false) String email,
+    Model model, Pageable pageable) {
         String keyword = null;
         if (name != null && !name.isBlank()) {
             keyword =name;
@@ -91,15 +97,24 @@ public class ContactFormController {
             keyword = email;
         }
 
-        List<Contact> contacts;
+        Page<Contact> pageList = contactService.getContact(pageable);
+
+        List<Contact> contacts = pageList.getContent();
 
         if (keyword == null) {
             // キーワードが未指定の場合は全件取得する
-            contacts = contactService.getContact();
+            contacts = contactService.getContact(pageable).getContent();
         } else {
-            contacts = contactService.searchContact(keyword);
+            pageList = contactService.searchContact(keyword, pageable);
+            contacts = pageList.getContent();
         }
+
+        if (contacts.isEmpty()) {
+            model.addAttribute("message", "該当するお問い合わせは見つかりませんでした。");
+        } 
+
         model.addAttribute("contacts", contacts);
+        model.addAttribute("pages", pageList);
         return "list";
     }
 

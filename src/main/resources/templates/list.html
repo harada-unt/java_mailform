@@ -40,6 +40,30 @@
         </table>
     </div>
     <div th:text="${message}"></div>
+    
+<!-- ページリンク -->
+    <div th:if="${pages?.totalPages > 1}">
+        <ul class="paging">
+            <li>
+                <span th:if="${pages?.first}">&lt;&lt;</span>
+                <a th:if="${not pages?.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
+            </li>
+            <!-- 中間のページリンク -->
+            <li th:each="i:${#numbers.sequence(0, pages?.totalPages-1)}">
+                <span th:if="${i}==${pages?.number}" th:text="${i+1}"></span>
+                <a th:if="${i}!=${pages?.number}" th:href="@{${url}(page=${i})}">
+                    <span th:text="${i+1}"></span>
+                </a>
+            </li>
+            <!-- 末尾のページリンク -->
+            <li>
+                <span th:if="${pages?.last}">&gt;&gt;</span>
+                <a th:if="${not pages?.last}" th:href="@{${url}(page=(${pages?.totalPages-1}))}">
+                    &gt;&gt;
+                </a>
+            </li>
+        </ul>
+    </div>
     <button type="button" onclick="location.href='/'" >トップに戻る</button>
 
   </body>

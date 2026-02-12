@@ -2,10 +2,12 @@ package com.unt.mailform.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 import com.unt.mailform.model.Contact;
 import com.unt.mailform.model.ContactDto;
 import com.unt.mailform.repository.ContactRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class ContactService {
@@ -24,9 +26,9 @@ public class ContactService {
         return contactRepository.save(contact);
     }
     
-    public List<Contact> getContact() {
-    // データベースからcontactsテーブルのレコードを全て取得
-    return contactRepository.findAll();
+    public Page<Contact> getContact(Pageable pageable) {
+    // 全件取得 ページング対応
+    return contactRepository.findAll(pageable);
     }
 
     public Contact getContactById(Long id) {
@@ -50,8 +52,8 @@ public class ContactService {
     contactRepository.deleteById(id);
     }
 
-    public List<Contact> searchContact(String keyword) {
+    public Page<Contact> searchContact(String keyword, Pageable pageable) {
     // 名前またはemailで検索 keywordに一致するものを取得
-    return contactRepository.findByNameContainingOrEmailContaining(keyword, keyword);
+    return contactRepository.findByNameContainingOrEmailContaining(keyword, keyword, pageable);
     }
 }
